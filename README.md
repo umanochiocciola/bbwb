@@ -10,4 +10,4 @@ It's strongly inspired by brainfuck, but I've added a buffer.
 
 I've also implemented separated I/O commands for ASCII and integers
 
-For documentation see <a href="OCUMENTATION">here</a>
+For documentation see <a href="DOCUMENTATION">here</a>
