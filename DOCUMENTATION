@@ -1,0 +1,25 @@
++  adds one to the current buffer
+
+-  subtract one from the current buffer
+
+#  clear buffer (set to 0)
+
+^  updates selected tape adress with current buffer
+
+v  loads selected tape adress to the buffer
+
+<  change selected cell by -1 (if negative, will cycle)
+
+>  change selected cell by +1 (if grater than tape len, will cycle)
+
+.  prints numeral value of the current buffer
+
+:  prints ascii char of the current buffer
+
+,  gets integer from input and loads it to the buffer 
+
+;  gets char from input and loads its ascii value to the buffer
+
+[  if selected cell == 0, skips commands until ] is reached
+
+]  goes to most recent [
