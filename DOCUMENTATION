@@ -23,3 +23,5 @@ v  loads selected tape adress to the buffer
 [  if selected cell == 0, skips commands until ] is reached
 
 ]  goes to most recent [
+
+@  prints tape (for debugging purposes)
