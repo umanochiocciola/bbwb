@@ -2,6 +2,11 @@
 
 This is a little EsoLang I made.
 
+Can be transpiled in
+  [python](to_py.py)
+  [C](to_c.py)
+
+
 It's strongly inspired by brainfuck, but I've added a buffer.
 - You can add and subtract only from the buffer.
 - You can then "write" the buffer value to the selected cell, overwriting any existing value.
