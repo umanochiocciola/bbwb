@@ -1,5 +1,6 @@
 # generates python code from
 # bbwb code
+# syntax: python3 to_py.py <target> [cells]
 
 
 
