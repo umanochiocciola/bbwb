@@ -10,5 +10,5 @@ It's strongly inspired by brainfuck, but I've added a buffer.
 
 I've also implemented separated I/O commands for ASCII and integers
 
-Documentation <a href="DOCUMENTATION">here</a>
-Wiki page <a href="https://esolangs.org/wiki/Brainfuck_But_With_Buffer">here</a>
+Documentation <a href="DOCUMENTATION">here</a></br>
+EsoLang.org Wiki page <a href="https://esolangs.org/wiki/Brainfuck_But_With_Buffer">here</a>
