@@ -21,43 +21,61 @@ except:
 debug('-- BBWB Compiler started --')
 debug('setting up')
 
-signature = '# transpiled to python with BBWBC\n# LINK HERE\n'
-init = f'tape = [0]*{cells}\nptr = 0\nbuff = 0\n'
+funcs = {
+    'def p():\n\tglobal buff\n\tbuff += 1\n\tif buff > 255: buff = 0':              '+',
+    'def m():\n\tglobal buff\n\tbuff -= 1\n\tif buff < 0: buff = 255':              '-',
+    'def w():\n\tglobal buff, ptr, tape\n\ttape[ptr] = buff':                       '^',
+    'def r():\n\tglobal buff, ptr, tape\n\tbuff = tape[ptr]':                       'v',
+    f'def d():\n\tglobal buff, ptr, tape\n\tptr = ptr-1 if ptr > 0 else {cells}':   '<',
+    f'def i():\n\tglobal buff, ptr, tape\n\tptr = ptr+1 if ptr+1 < {cells} else 0': '>',
+    'def dt():\n\tglobal buff, ptr, tape\n\tprint(buff, end="", flush=True)':       '.',
+    'def cl():\n\tglobal buff, ptr, tape\n\tprint(chr(buff), end="", flush=True)':  ':',
+    'def cm():\n\tglobal buff, ptr, tape\n\tbuff = int(input("i> "))':              ',',
+    'def sc():\n\tglobal buff, ptr, tape\n\tbuff = ord(input("c> ")[0])':           ';'
+}
 
-OUTPUT = signature + init
+debug('initializing')
+
+signature = '# transpiled to python with BBWBC\n# https://github.com/umanochiocciola/bbwb\n'
+init = f'\ntape = [0]*{cells}\nptr = 0\nbuff = 0\n'
+
+OUTPUT = signature
+for i  in funcs:               # if a program doesn't use a command, why would you include it?
+    if funcs[i] in program:
+        OUTPUT += i + '\n'
+
+OUTPUT += init
+    
 
 debug('creating references')
 
 repls = {
-    '+': 'buff += 1',
-    '-': 'buff -= 1',
+    '+': 'p()',
+    '-': 'm()',
     '#': 'buff = 0',
-    '^': 'tape[ptr] = buff',
-    'v': 'buff = tape[ptr]',
-    '<': f'ptr = ptr-1 if ptr > 0 else {cells}',
-    '>': f'ptr = ptr+1 if ptr+1 < {cells} else 0',
-    '.': 'print(buff, end="")',
-    ':': 'print(chr(buff), end="")',
-    ',': 'buff = int(input("i> "))',
-    ';': 'buff = ord(input("c> ")[0])',
-    '[': 'while tape[ptr]:'
+    '^': 'w()',
+    'v': 'r()',
+    '<': 'd()',
+    '>': 'i()',
+    '.': 'dt()',
+    ':': 'cl()',
+    ',': 'cm()',
+    ';': 'sc',
+    '[': '\nwhile tape[ptr]:'
 }
 
 debug('compiling')
 
-INDENT = ''
+loops = 0
 for ch in program:
     
-    if ch == ']': INDENT = '    '*(INDENT.count('    ')-1)
+    if ch == ']': OUTPUT = OUTPUT[:-1] + '\n'# we need to remove last ";"
     if not (ch in repls): continue
     
-    OUTPUT += INDENT+repls[ch]+'\n'
-    if ch == '[': INDENT += '    '
-    
+    OUTPUT += repls[ch]+';'
+    if ch == '[': OUTPUT = OUTPUT[:-1]       # obviously we can't have "while:;"
 
-
-if INDENT != '':
-    debug('last loops not closed, even if it works with python, it won\'t on other compilers', 'warning')
+OUTPUT += '0'
 
 debug('writing to out.py')
 
