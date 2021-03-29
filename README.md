@@ -2,8 +2,8 @@
 
 This is a little EsoLang I made.
 
-Can be transpiled in
-  [python](to_py.py)
+Can be transpiled in</br>
+  [python](to_py.py)</br>
   [C](to_c.py)
 
 
