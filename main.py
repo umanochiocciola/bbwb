@@ -1,3 +1,8 @@
+# generates python code from
+# bbwb code
+
+
+
 from sys import argv
 
 if len(argv) < 2:
