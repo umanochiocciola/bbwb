@@ -1,3 +1,10 @@
+'''
+generates c code
+from bbwb code
+
+syntax: python3 to_c.py <target> [cells]
+'''
+
 from sys import argv
 
 if len(argv) < 2:
