@@ -61,19 +61,22 @@ repls = {
     ':': 'cl()',
     ',': 'cm()',
     ';': 'sc()',
-    '[': '\nwhile tape[ptr]:'
+    '[': 'while tape[ptr]:',
+    '@': 'print(tape, ptr, buff)'
 }
 
 debug('compiling')
 
-loops = 0
+INDENT = ''
+
 for ch in program:
     
-    if ch == ']': OUTPUT = OUTPUT[:-1] + '\n'# we need to remove last ";"
+    if ch == ']': OUTPUT = OUTPUT[:-1] + '\n'; INDENT = '\t'*(INDENT.count('\t')-1) # we need to remove last ";"
     if not (ch in repls): continue
     
-    OUTPUT += repls[ch]+';'
-    if ch == '[': OUTPUT = OUTPUT[:-1]       # obviously we can't have "while:;"
+    OUTPUT += (repls[ch]+';') if ch != '[' else ('\n' + INDENT + repls[ch])
+    
+    if ch == '[': INDENT += '\t'; OUTPUT += '\n' + INDENT
 
 OUTPUT += '0'
 
