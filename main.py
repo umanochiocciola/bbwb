@@ -31,7 +31,7 @@ funcs = {
     'def dt():\n\tglobal buff, ptr, tape\n\tprint(buff, end="", flush=True)':       '.',
     'def cl():\n\tglobal buff, ptr, tape\n\tprint(chr(buff), end="", flush=True)':  ':',
     'def cm():\n\tglobal buff, ptr, tape\n\tbuff = int(input("i> "))':              ',',
-    'def sc():\n\tglobal buff, ptr, tape\n\tbuff = ord(input("c> ")[0])':           ';'
+    'def sc():\n\tglobal buff, ptr, tape\n\tbuff = ord(input("c> "))':           ';'
 }
 
 debug('initializing')
@@ -83,5 +83,3 @@ with open('out.py', 'w') as f:
     f.write(OUTPUT)
 
 debug('done!')
-
-
