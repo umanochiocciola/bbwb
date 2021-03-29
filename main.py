@@ -26,7 +26,7 @@ funcs = {
     'def m():\n\tglobal buff\n\tbuff -= 1\n\tif buff < 0: buff = 255':              '-',
     'def w():\n\tglobal buff, ptr, tape\n\ttape[ptr] = buff':                       '^',
     'def r():\n\tglobal buff, ptr, tape\n\tbuff = tape[ptr]':                       'v',
-    f'def d():\n\tglobal buff, ptr, tape\n\tptr = ptr-1 if ptr > 0 else {cells}':   '<',
+    f'def d():\n\tglobal buff, ptr, tape\n\tptr = ptr-1 if ptr > 0 else {cells-1}':   '<',
     f'def i():\n\tglobal buff, ptr, tape\n\tptr = ptr+1 if ptr+1 < {cells} else 0': '>',
     'def dt():\n\tglobal buff, ptr, tape\n\tprint(buff, end="", flush=True)':       '.',
     'def cl():\n\tglobal buff, ptr, tape\n\tprint(chr(buff), end="", flush=True)':  ':',
@@ -83,3 +83,4 @@ with open('out.py', 'w') as f:
     f.write(OUTPUT)
 
 debug('done!')
+
