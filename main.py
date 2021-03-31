@@ -37,7 +37,7 @@ funcs = {
 debug('initializing')
 
 signature = '# transpiled to python with BBWBC\n# https://github.com/umanochiocciola/bbwb\n'
-init = f'\ntape = [0]*{cells}\nptr = 0\nbuff = 0\n'
+init = f'\nimport sys\ntape = [0]*{cells}\nptr = 0\nbuff = 0\n'
 
 OUTPUT = signature
 for i  in funcs:               # if a program doesn't use a command, why would you include it?
