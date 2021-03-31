@@ -1,3 +1,5 @@
+# bbwb to python transpiler
+
 from sys import argv
 
 if len(argv) < 2:
