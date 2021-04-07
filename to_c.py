@@ -1,10 +1,3 @@
-'''
-generates c code
-from bbwb code
-
-syntax: python3 to_c.py <target> [cells]
-'''
-
 from sys import argv
 
 if len(argv) < 2:
@@ -30,9 +23,9 @@ debug('setting up')
 
 debug('initializing')
 
-signature = '/* transpiled to python with BBWBC\n https://github.com/umanochiocciola/bbwb */\n'
+signature = '/* transpiled to c code with BBWBC\n https://github.com/umanochiocciola/bbwb */\n'
 
-init = '#include <stdio.h>\n#define CELLS ' + str(cells) + '\nint main() {\nint buff = 0; int tape[CELLS] = {0}; int ptr = 0;'
+init = '#include <stdio.h>\n#define CELLS ' + str(cells) + '\nint main() {\nint buff = 0; int tape[CELLS] = {0}; int ptr = 0; int i = 0;'
 
 OUTPUT = signature + init
 
@@ -51,8 +44,36 @@ repls = {
     ',': 'scanf("%d", &buff);',
     ';': 'scanf("%c", &buff);',
     '[': 'while (tape[ptr]) {',
-    ']': '}'
+    ']': '}',
+    '@': 'for (i=0: i<CELLS; i++) {printf("%d", tape[i])}'
 }
+
+debug('precompiling')
+
+precom = program.split('::START::')
+
+if len(precom) <= 1:
+    debug('no precompilation phase detected, implicitly starting compilation at char 0', 'note')
+else:
+    program = precom[1]
+    
+    debug('reading custom chars')
+    
+    new_chars = {}
+    for ch in precom[0]:
+        if ch == '(':
+            newch = definition = ''
+        if not (ch in repls) and not (ch in [' ', '\n', ')']):
+            newch = ch
+        if ch in repls:
+            definition += ch
+        if ch == ')':
+            new_chars[newch] = definition
+
+    debug('writing new chars in program')
+    for newchar in new_chars:
+        program = program.replace(newchar, new_chars[newchar])
+
 
 debug('compiling')
 
