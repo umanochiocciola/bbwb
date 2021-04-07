@@ -25,3 +25,12 @@ v  loads selected tape adress to the buffer
 ]  goes to most recent [
 
 @  prints tape (for debugging purposes)
+
+
+User defined commands:
+BBWB programs will now have to sections the precompiling phase and the actual code, they are separated by
+::START::
+
+in the precompiling phase, define a custom command like this
+
+(CHAR BBWBCODE) 
